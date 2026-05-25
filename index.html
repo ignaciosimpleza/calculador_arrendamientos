@@ -110,24 +110,37 @@ body{
 
 /* rot fields */
 .rot-fields{display:flex;flex-direction:column;gap:8px}
-.rot-field{display:flex;align-items:center;gap:6px}
-.rot-field .rf-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;box-shadow:0 0 0 2px rgba(255,255,255,.08)}
-.rot-field .rf-name{font-size:11px;font-weight:500;color:var(--sid-txt);flex:1}
+.rot-field{display:flex;align-items:center;gap:8px}
+.rot-field .rf-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;box-shadow:0 0 0 2px rgba(255,255,255,.08)}
+.rot-field .rf-name{font-size:11px;font-weight:500;color:var(--sid-txt);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .rot-field .rf-tag{font-size:9px;color:var(--sid-fnt);font-style:italic}
-.rot-field input{
-  width:58px;background:rgba(0,0,0,.22);border:1px solid rgba(255,255,255,.14);
-  border-radius:5px;color:var(--sid-txt);font-family:'Sora',sans-serif;
-  font-size:12px;font-weight:600;padding:4px 7px;text-align:right;outline:none;
-  transition:border-color .15s, background .15s;
+.rot-field .rf-pct-wrap{display:flex;align-items:center;gap:2px;background:rgba(0,0,0,.22);border:1px solid rgba(255,255,255,.14);border-radius:5px;padding:2px 5px 2px 7px;transition:border-color .15s, background .15s}
+.rot-field .rf-pct-wrap:focus-within{border-color:var(--verde-menta);background:rgba(0,0,0,.32)}
+.rot-field input.rf-pct{
+  width:38px;background:transparent;border:none;
+  color:var(--sid-txt);font-family:'Sora',sans-serif;
+  font-size:12px;font-weight:600;padding:2px 0;text-align:right;outline:none;
 }
-.rot-field input:focus{border-color:var(--verde-menta);background:rgba(0,0,0,.32)}
+.rot-field .rf-pct-suf{font-size:10px;color:var(--sid-mut);font-weight:600}
 
+.rot-warns{display:flex;flex-direction:column;gap:6px;margin-top:8px}
 .rot-warn{
-  font-size:10px;color:#FFE4D1;line-height:1.4;
-  padding:7px 9px;background:rgba(205,97,85,.22);
-  border:1px solid rgba(205,97,85,.45);border-radius:5px;
-  display:none;
+  font-size:10px;line-height:1.35;
+  padding:7px 9px;border-radius:5px;
+  display:flex;gap:6px;align-items:flex-start;
 }
+.rot-warn.err{color:#FFE4D1;background:rgba(205,97,85,.22);border:1px solid rgba(205,97,85,.45)}
+.rot-warn.ok{color:#CDF7E5;background:rgba(50,232,169,.16);border:1px solid rgba(50,232,169,.4)}
+.rot-warn-icon{flex-shrink:0;font-weight:700}
+
+.btn-add-sb{
+  margin-top:8px;background:rgba(255,255,255,.08);
+  border:1px dashed rgba(255,255,255,.32);
+  color:var(--sid-txt);font-family:'Sora',sans-serif;
+  font-size:10px;font-weight:600;padding:7px;border-radius:5px;
+  cursor:pointer;letter-spacing:.3px;width:100%;transition:all .15s;
+}
+.btn-add-sb:hover{background:rgba(255,255,255,.14);border-color:var(--verde-menta);color:var(--verde-menta)}
 
 /* soja ref */
 .sb-field{display:flex;flex-direction:column;gap:5px}
@@ -169,13 +182,17 @@ body{
   font-size:10px;font-weight:600;color:var(--azul-pizarra);
   letter-spacing:.3px;
 }
-.topbar-right{margin-left:auto}
-.btn-res{
+.topbar-right{margin-left:auto;display:flex;gap:8px}
+.btn-res, .btn-pdf, .btn-add{
   background:#fff;border:1px solid var(--border2);border-radius:6px;
   color:var(--gris-oscuro);font-family:'Sora',sans-serif;font-size:11px;font-weight:600;
   padding:6px 14px;cursor:pointer;transition:all .15s;
 }
 .btn-res:hover{border-color:var(--azul-pizarra);color:var(--azul-pizarra);background:#FBFAF6}
+.btn-pdf{background:var(--azul-pizarra);color:#fff;border-color:var(--azul-pizarra)}
+.btn-pdf:hover{background:var(--gris-oscuro);border-color:var(--gris-oscuro)}
+.btn-add{background:var(--gris-oscuro);color:#fff;border-color:var(--gris-oscuro);font-size:10px;padding:5px 10px}
+.btn-add:hover{background:#4D5557}
 
 .content{padding:20px 22px 60px;display:flex;flex-direction:column;gap:18px}
 
@@ -221,15 +238,29 @@ body{
 .cult-head{
   padding:10px 13px;border-bottom:1px solid var(--border);
   display:flex;align-items:center;gap:7px;
-  background:#FBFAF6;
+  background:#FBFAF6;position:relative;
 }
 .cult-pip{width:9px;height:9px;border-radius:50%;flex-shrink:0;box-shadow:0 0 0 2px rgba(255,255,255,1),0 0 0 3px rgba(0,0,0,.04)}
 .cult-name{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;flex:1}
+.cult-cycle-tag{
+  font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;
+  padding:2px 5px;border-radius:3px;background:var(--panel);color:var(--muted);
+}
+.cult-cycle-tag.inv{background:rgba(108,134,140,.18);color:var(--azul-pizarra)}
+.cult-cycle-tag.est1{background:rgba(26,184,122,.18);color:var(--green)}
+.cult-cycle-tag.est2{background:rgba(247,220,111,.45);color:#8A6E0C}
 .cult-rot-badge{
   font-size:9px;font-weight:700;
   background:var(--panel);border-radius:4px;padding:2px 7px;color:var(--muted);
   font-family:'JetBrains Mono',monospace;
 }
+.cult-edit, .cult-del{
+  background:none;border:none;color:var(--faint);font-size:13px;line-height:1;
+  cursor:pointer;padding:3px 5px;border-radius:4px;transition:all .15s;
+}
+.cult-edit:hover{background:rgba(108,134,140,.14);color:var(--azul-pizarra)}
+.cult-del{font-size:14px}
+.cult-del:hover{background:rgba(205,97,85,.14);color:var(--terracota)}
 
 .cult-body{padding:11px 13px}
 .cf-row{display:flex;align-items:center;gap:6px;margin-bottom:7px}
@@ -351,6 +382,137 @@ table.htbl tbody tr:hover td:first-child{background:var(--beige-suave)}
 ::-webkit-scrollbar-track{background:var(--bg)}
 ::-webkit-scrollbar-thumb{background:var(--beige-suave);border-radius:3px}
 ::-webkit-scrollbar-thumb:hover{background:var(--azul-pizarra)}
+
+/* ─── MODAL: agregar cultivo ─── */
+.modal-bg{
+  position:fixed;inset:0;background:rgba(44,53,57,.45);
+  display:none;align-items:flex-start;justify-content:center;
+  z-index:1000;padding:40px 16px;overflow-y:auto;
+  backdrop-filter:blur(2px);
+}
+.modal-bg.open{display:flex;animation:fadeIn .2s ease-out}
+.modal{
+  background:#fff;border-radius:12px;width:100%;max-width:560px;
+  box-shadow:0 18px 50px rgba(44,53,57,.25);
+  overflow:hidden;border:1px solid var(--border);
+}
+.modal-hd{
+  padding:16px 20px;border-bottom:1px solid var(--border);background:#FBFAF6;
+  display:flex;align-items:center;gap:10px;
+}
+.modal-hd h2{font-size:14px;font-weight:700;color:var(--text);letter-spacing:-.1px;flex:1}
+.modal-close{background:none;border:none;color:var(--muted);font-size:20px;line-height:1;cursor:pointer;padding:4px 8px;border-radius:4px;transition:all .15s}
+.modal-close:hover{background:var(--panel);color:var(--terracota)}
+.modal-body{padding:18px 20px;display:flex;flex-direction:column;gap:14px}
+.modal-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.modal-row.r3{grid-template-columns:1fr 1fr 1fr}
+.modal-field{display:flex;flex-direction:column;gap:4px}
+.modal-field label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--muted)}
+.modal-field input, .modal-field select{
+  background:#FBFAF6;border:1px solid var(--border);border-radius:5px;
+  color:var(--text);font-family:'Sora',sans-serif;font-size:12px;font-weight:500;
+  padding:7px 9px;outline:none;transition:border-color .15s, background .15s;
+  width:100%;
+}
+.modal-field input:focus, .modal-field select:focus{border-color:var(--green);background:#fff}
+.modal-field input[type=color]{padding:2px;height:32px;cursor:pointer}
+.modal-emojis{display:flex;gap:4px;flex-wrap:wrap}
+.modal-emojis button{
+  background:#FBFAF6;border:1px solid var(--border);border-radius:5px;
+  font-size:16px;line-height:1;cursor:pointer;padding:6px 8px;
+  transition:all .15s;font-family:inherit;
+}
+.modal-emojis button.sel{background:rgba(26,184,122,.14);border-color:var(--green)}
+.modal-emojis button:hover{background:var(--panel)}
+.modal-ft{
+  padding:14px 20px;border-top:1px solid var(--border);background:#FBFAF6;
+  display:flex;justify-content:flex-end;gap:8px;
+}
+.modal-ft button{
+  font-family:'Sora',sans-serif;font-size:11px;font-weight:600;
+  padding:8px 16px;border-radius:6px;cursor:pointer;transition:all .15s;
+  letter-spacing:.2px;
+}
+.modal-cancel{background:#fff;border:1px solid var(--border2);color:var(--muted)}
+.modal-cancel:hover{border-color:var(--muted);color:var(--text)}
+.modal-save{background:var(--green);border:1px solid var(--green);color:#fff}
+.modal-save:hover{background:#159566;border-color:#159566}
+
+/* ─── EXPORT SLIDE (oculto) ─── */
+.export-stage{
+  position:absolute;left:-99999px;top:0;width:1920px;height:1080px;
+  background:var(--crema-fondo);
+  font-family:'Sora',sans-serif;color:var(--text);
+  overflow:hidden;
+}
+.es-header{
+  height:120px;background:var(--azul-pizarra);color:#fff;
+  display:flex;align-items:center;gap:24px;padding:0 60px;
+}
+.es-logo{height:54px;width:auto;display:block;flex-shrink:0}
+.es-logo-cover{height:auto;width:420px;display:block}
+.es-header-text{flex:1}
+.es-eyebrow{font-size:16px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.75);margin-bottom:4px}
+.es-title{font-size:38px;font-weight:700;letter-spacing:-.5px}
+.es-date{font-size:16px;color:rgba(255,255,255,.85);font-weight:500;text-align:right}
+.es-body{padding:50px 60px;display:flex;flex-direction:column;gap:30px;height:calc(100% - 120px - 60px)}
+.es-footer{
+  position:absolute;bottom:0;left:0;right:0;height:60px;background:var(--gris-oscuro);color:rgba(255,255,255,.7);
+  display:flex;align-items:center;padding:0 60px;font-size:13px;letter-spacing:.3px;
+}
+.es-footer .f-spacer{flex:1}
+.es-cover{display:flex;flex-direction:column;justify-content:center;align-items:center;height:100%;text-align:center;gap:24px}
+.es-cover-eyebrow{font-size:18px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:var(--azul-pizarra)}
+.es-cover-title{font-size:80px;font-weight:800;color:var(--text);letter-spacing:-1px;line-height:1.05;max-width:1400px}
+.es-cover-sub{font-size:24px;color:var(--muted);font-weight:500;max-width:1100px;line-height:1.4}
+.es-cover-pills{display:flex;gap:14px;margin-top:20px}
+.es-cover-pill{
+  background:#fff;border:1px solid var(--border);border-radius:30px;padding:10px 22px;
+  font-size:16px;font-weight:600;color:var(--gris-oscuro);
+  display:flex;align-items:center;gap:8px;
+}
+.es-kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
+.es-kpi{
+  background:#fff;border:1px solid var(--border);border-left:4px solid var(--green);
+  border-radius:10px;padding:18px 22px;
+}
+.es-kpi.teal{border-left-color:var(--teal)}
+.es-kpi-lbl{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:10px}
+.es-kpi-val{font-size:36px;font-weight:800;color:var(--green);line-height:1;letter-spacing:-.5px}
+.es-kpi-val.teal{color:var(--teal)}
+.es-kpi-val.bad{color:var(--red)}
+.es-kpi-sub{font-size:12px;color:var(--faint);margin-top:6px}
+.es-section-title{font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--muted);padding-left:12px;border-left:4px solid var(--green);margin-bottom:14px}
+.es-section-title.teal{border-left-color:var(--teal)}
+.es-section-title.gold{border-left-color:var(--gold-bg)}
+.es-table{width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden;border:1px solid var(--border)}
+.es-table th{background:var(--gris-oscuro);color:#fff;padding:12px 14px;text-align:right;font-size:13px;font-weight:600;letter-spacing:.3px}
+.es-table th:first-child{text-align:left;background:#4D5557}
+.es-table td{padding:11px 14px;text-align:right;font-size:14px;font-weight:600;border-bottom:1px solid var(--border)}
+.es-table td:first-child{text-align:left;background:var(--panel);color:var(--gris-oscuro);font-weight:700;font-size:13px}
+.es-table tbody tr:nth-child(even) td{background:rgba(247,242,233,.55)}
+.es-table tbody tr:nth-child(even) td:first-child{background:var(--card)}
+.es-table tbody tr:last-child td{border-bottom:none}
+.es-pos{color:#0F6F49}
+.es-neg{color:#8B2F26}
+.es-formula{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--gris-oscuro);font-weight:500;background:#fff;border:1px solid var(--border);padding:12px 18px;border-radius:8px;line-height:1.7}
+.es-sens-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;height:100%}
+.es-sens-block{background:#fff;border:1px solid var(--border);border-radius:10px;overflow:hidden;display:flex;flex-direction:column}
+.es-sens-head{padding:10px 14px;background:#FBFAF6;border-bottom:1px solid var(--border);font-size:12px;font-weight:700;color:var(--gris-oscuro);text-transform:uppercase;letter-spacing:.5px;display:flex;align-items:center;gap:8px}
+.es-sens-badge{margin-left:auto;background:#fff;border:1px solid var(--border);border-radius:4px;padding:2px 8px;font-size:11px;font-weight:700;color:var(--green)}
+.es-sens-table{width:100%;border-collapse:collapse;font-size:11px;flex:1}
+.es-sens-table th{background:var(--gris-oscuro);color:#fff;padding:6px 8px;text-align:right;font-size:11px;font-weight:600}
+.es-sens-table th:first-child{text-align:left;background:#4D5557}
+.es-sens-table td{padding:5px 8px;text-align:right;font-size:11px;font-weight:600;border-bottom:1px solid rgba(227,214,196,.55)}
+.es-sens-table td:first-child{background:var(--panel);text-align:left;color:var(--gris-oscuro);font-weight:700;font-size:10px;border-right:1px solid var(--border)}
+.es-sens-table tbody tr:nth-child(even) td{background:rgba(247,242,233,.5)}
+.es-sens-table tbody tr:nth-child(even) td:first-child{background:var(--card)}
+.es-cv{padding:2px 7px;border-radius:4px;font-weight:700;display:inline-block}
+.es-cv-pos{background:rgba(26,184,122,.14);color:#0F6F49}
+.es-cv-neg{background:rgba(205,97,85,.14);color:#8B2F26}
+.es-cv-cur{background:rgba(26,184,122,.28);color:#0A4F33;border:1px solid rgba(26,184,122,.55)}
+.es-cv-teal{background:rgba(108,134,140,.18);color:#3F5559}
+.es-cv-teal-cur{background:rgba(108,134,140,.34);color:#2A3B3F;border:1px solid rgba(108,134,140,.55)}
 </style>
 </head>
 <body>
@@ -360,7 +522,7 @@ table.htbl tbody tr:hover td:first-child{background:var(--beige-suave)}
   <div class="sb-logo">
     <div class="brand-logo" role="img" aria-label="Simpleza"></div>
     <div id="sbfb" class="sb-logo-fb">SIMPLEZA</div>
-    <div class="sb-logo-sub">Capacidad de pago</div>
+    <div class="sb-logo-sub">Calculadora de arrendamientos</div>
   </div>
 
   <div class="sb-body">
@@ -368,9 +530,8 @@ table.htbl tbody tr:hover td:first-child{background:var(--beige-suave)}
     <div>
       <div class="sb-sec-title">Participación en rotación</div>
       <div class="rot-fields" id="rot-fields"></div>
-      <div class="rot-warn" id="rot-warn" style="margin-top:8px">
-        ⚠ Supera doble cultivo (máx 2.00). Soja 2ª no suma al límite.
-      </div>
+      <div class="rot-warns" id="rot-warns"></div>
+      <button class="btn-add-sb" onclick="openCropModal()">＋ Agregar cultivo</button>
     </div>
 
     <div class="sb-divider"></div>
@@ -391,11 +552,10 @@ table.htbl tbody tr:hover td:first-child{background:var(--beige-suave)}
 <div class="main">
 
   <div class="topbar">
-    <div class="brand-logo" role="img" aria-label="Simpleza"></div>
-    <div class="topbar-sep"></div>
-    <h1>Capacidad de Pago de Alquileres</h1>
+    <h1>Capacidad de pago de alquileres</h1>
     <div class="topbar-badge">Arrendamiento &amp; Aparcería</div>
     <div class="topbar-right">
+      <button class="btn-pdf" onclick="exportPDF()" title="Exportar a PDF 16:9">⬇ PDF</button>
       <button class="btn-res" onclick="resetAll()">↺ Restaurar</button>
     </div>
   </div>
@@ -443,14 +603,100 @@ table.htbl tbody tr:hover td:first-child{background:var(--beige-suave)}
   </div>
 </div>
 
+<!-- ══ MODAL: AGREGAR CULTIVO ══ -->
+<div class="modal-bg" id="crop-modal" onclick="if(event.target===this)closeCropModal()">
+  <div class="modal">
+    <div class="modal-hd">
+      <h2 id="modal-title">Agregar cultivo</h2>
+      <button class="modal-close" onclick="closeCropModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-field" id="m-base-field">
+        <label>Tomar como base</label>
+        <select id="m-base" onchange="applyBase()"></select>
+      </div>
+      <div class="modal-row">
+        <div class="modal-field">
+          <label>Nombre</label>
+          <input type="text" id="m-name" placeholder="Ej. Cebada">
+        </div>
+        <div class="modal-field">
+          <label>Color</label>
+          <input type="color" id="m-color" value="#1AB87A">
+        </div>
+      </div>
+      <div class="modal-row">
+        <div class="modal-field">
+          <label>Tipo (estación)</label>
+          <select id="m-season">
+            <option value="invernal">Invernal</option>
+            <option value="estival">Estival</option>
+          </select>
+        </div>
+        <div class="modal-field">
+          <label>Ciclo</label>
+          <select id="m-cycle">
+            <option value="1">1° (primario)</option>
+            <option value="2">2° (post invernal)</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-row r3">
+        <div class="modal-field">
+          <label>Rinde (kg/ha)</label>
+          <input type="number" id="m-rinde" value="3000" step="100">
+        </div>
+        <div class="modal-field">
+          <label>Precio (U$S/tn)</label>
+          <input type="number" id="m-precio" value="250" step="5">
+        </div>
+        <div class="modal-field">
+          <label>G. Comerciales (U$S/tn)</label>
+          <input type="number" id="m-gcom" value="30" step="1">
+        </div>
+      </div>
+      <div class="modal-row r3">
+        <div class="modal-field">
+          <label>G. Cosecha (U$S/ha)</label>
+          <input type="number" id="m-gcosecha" value="90" step="5">
+        </div>
+        <div class="modal-field">
+          <label>G. Directos (U$S/ha)</label>
+          <input type="number" id="m-gdirectos" value="500" step="10">
+        </div>
+        <div class="modal-field">
+          <label>Rent. obj. (%)</label>
+          <input type="number" id="m-rent" value="15" step="1" min="0" max="100">
+        </div>
+      </div>
+      <div class="modal-field">
+        <label>Participación en rotación (%)</label>
+        <input type="number" id="m-rot" value="0" step="1" min="0" max="200">
+      </div>
+    </div>
+    <div class="modal-ft">
+      <button class="modal-cancel" onclick="closeCropModal()">Cancelar</button>
+      <button class="modal-save" onclick="saveCrop()">Guardar cultivo</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ EXPORT STAGE (hidden, used for PDF render) ══ -->
+<div class="export-stage" id="export-stage"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
 <script>
-const CROPS_DEF = [
-  {id:'trigo',  name:'Trigo',   color:'#D4A82E', rinde:4500, precio:230, gcom:30, gcosecha:90, gdirectos:550, rent:15, rot:.25, noLimit:false},
-  {id:'soja2',  name:'Soja 2ª', color:'#1AB87A', rinde:2000, precio:320, gcom:30, gcosecha:90, gdirectos:240, rent:15, rot:.25, noLimit:true},
-  {id:'maiz',   name:'Maíz',    color:'#CD6155', rinde:8000, precio:190, gcom:45, gcosecha:90, gdirectos:550, rent:15, rot:.25, noLimit:false},
-  {id:'soja',   name:'Soja',    color:'#6C868C', rinde:3000, precio:320, gcom:30, gcosecha:90, gdirectos:550, rent:15, rot:.25, noLimit:false},
-  {id:'girasol',name:'Girasol', color:'#A8569A', rinde:4500, precio:230, gcom:30, gcosecha:90, gdirectos:550, rent:15, rot:.25, noLimit:false},
+let CROPS_DEF = [
+  {id:'trigo',  name:'Trigo',   color:'#D4A82E', season:'invernal', cycle:'1', rinde:4500, precio:230, gcom:30, gcosecha:90, gdirectos:550, rent:15, rot:25},
+  {id:'soja2',  name:'Soja 2ª', color:'#1AB87A', season:'estival',  cycle:'2', rinde:2000, precio:320, gcom:30, gcosecha:90, gdirectos:240, rent:15, rot:25},
+  {id:'maiz',   name:'Maíz',    color:'#CD6155', season:'estival',  cycle:'1', rinde:8000, precio:190, gcom:45, gcosecha:90, gdirectos:550, rent:15, rot:25},
+  {id:'soja',   name:'Soja',    color:'#6C868C', season:'estival',  cycle:'1', rinde:3000, precio:320, gcom:30, gcosecha:90, gdirectos:550, rent:15, rot:25},
+  {id:'girasol',name:'Girasol', color:'#A8569A', season:'estival',  cycle:'1', rinde:4500, precio:230, gcom:30, gcosecha:90, gdirectos:550, rent:15, rot:25},
 ];
+// snapshot inicial para resetAll
+const CROPS_INITIAL = JSON.parse(JSON.stringify(CROPS_DEF));
 
 // ── FÓRMULAS ──
 function ingresoNeto(r,p,gc){ return r*(p-gc)/1000 }
@@ -473,18 +719,23 @@ function getData(c){
     rinde:n(`${c.id}-rinde`), precio:n(`${c.id}-precio`),
     gcom:n(`${c.id}-gcom`),   gcosecha:n(`${c.id}-gcosecha`),
     gdirectos:n(`${c.id}-gdirectos`), rent:n(`${c.id}-rent`)/100,
-    rot:n(`${c.id}-rot`),
+    rot:n(`${c.id}-rot`)/100,    // input es %, internamente decimal
+    rotPct:n(`${c.id}-rot`),     // % crudo para mostrar
   }
+}
+function cycleTagInfo(c){
+  if(c.cycle==='2') return {cls:'est2', txt:'2°'}
+  if(c.season==='invernal') return {cls:'inv', txt:'Inv 1°'}
+  return {cls:'est1', txt:'Est 1°'}
 }
 
 function resetAll(){
   document.getElementById('soja-ref').value = 320
-  CROPS_DEF.forEach(c=>{
-    ['rinde','precio','gcom','gcosecha','gdirectos','rent','rot'].forEach(f=>{
-      const el = document.getElementById(`${c.id}-${f}`)
-      if(el) el.value = c[f]
-    })
-  })
+  CROPS_DEF = JSON.parse(JSON.stringify(CROPS_INITIAL))
+  buildSidebar()
+  buildCultivos()
+  buildSensTabs()
+  activeTab = CROPS_DEF[0]?.id
   recalc()
 }
 
@@ -494,18 +745,25 @@ function buildSidebar(){
     <div class="rot-field">
       <div class="rf-dot" style="background:${c.color}"></div>
       <span class="rf-name">${c.name}</span>
-      ${c.noLimit?'<span class="rf-tag">libre</span>':''}
-      <input type="number" id="${c.id}-rot" value="${c.rot}" step="0.05" min="0" max="2" oninput="recalc()">
+      <span class="rf-pct-wrap">
+        <input class="rf-pct" type="number" id="${c.id}-rot" value="${c.rot}" step="1" min="0" max="200" oninput="recalc()">
+        <span class="rf-pct-suf">%</span>
+      </span>
     </div>`).join('')
 }
 
 function buildCultivos(){
-  document.getElementById('cultivos-grid').innerHTML = CROPS_DEF.map(c=>`
+  document.getElementById('cultivos-grid').innerHTML = CROPS_DEF.map(c=>{
+    const ct = cycleTagInfo(c)
+    return `
     <div class="cult-card">
       <div class="cult-head">
         <div class="cult-pip" style="background:${c.color}"></div>
         <div class="cult-name" style="color:${c.color}">${c.name}</div>
+        <span class="cult-cycle-tag ${ct.cls}">${ct.txt}</span>
         <div class="cult-rot-badge" id="${c.id}-rotbadge">—</div>
+        <button class="cult-edit" title="Editar cultivo" onclick="openCropModal('${c.id}')">✎</button>
+        <button class="cult-del" title="Eliminar cultivo" onclick="removeCrop('${c.id}')">×</button>
       </div>
       <div class="cult-body">
         <div class="cf-row"><label>Rentab. obj.</label>
@@ -529,26 +787,42 @@ function buildCultivos(){
 
         <div class="cult-results" id="${c.id}-results"></div>
       </div>
-    </div>`).join('')
+    </div>`
+  }).join('')
 }
 
 // ── RECALC ──
-let activeTab = CROPS_DEF[0].id
+let activeTab = CROPS_DEF[0]?.id
 
 function recalc(){
   const sojaRef = n('soja-ref') || 320
 
-  // Rotación — límite sin soja2
-  let rotTotal = 0, rotLim = 0
+  // Validación rotación: Σ(1°) = 100% · Σ(2°) = Σ(invernal 1°)
+  let pct1 = 0, pct2 = 0, pctInv = 0
   CROPS_DEF.forEach(c=>{
     const rot = n(`${c.id}-rot`)
-    rotTotal += rot
-    if(!c.noLimit) rotLim += rot
+    if(c.cycle === '2') pct2 += rot
+    else { pct1 += rot; if(c.season === 'invernal') pctInv += rot }
     const b = document.getElementById(`${c.id}-rotbadge`)
-    if(b) b.textContent = rot.toFixed(2)
+    if(b) b.textContent = rot.toFixed(0)+'%'
   })
-  const over = rotLim > 1.001
-  document.getElementById('rot-warn').style.display = over ? 'block' : 'none'
+
+  const warns = []
+  const diff1 = pct1 - 100
+  if(Math.abs(diff1) > 0.5){
+    warns.push({type:'err', text:`Cultivos 1° suman <b>${pct1.toFixed(0)}%</b> — debe ser <b>100%</b> (${diff1>0?'+':''}${diff1.toFixed(0)}).`})
+  }
+  if(Math.abs(pct2 - pctInv) > 0.5){
+    warns.push({type:'err', text:`Cultivos 2° (<b>${pct2.toFixed(0)}%</b>) deben coincidir con invernales 1° (<b>${pctInv.toFixed(0)}%</b>).`})
+  }
+  if(!warns.length && CROPS_DEF.length){
+    warns.push({type:'ok', text:`Rotación válida — 1° = 100% · 2° = invernales (${pctInv.toFixed(0)}%).`})
+  }
+  document.getElementById('rot-warns').innerHTML = warns.map(w=>`
+    <div class="rot-warn ${w.type}">
+      <span class="rot-warn-icon">${w.type==='ok'?'✓':'⚠'}</span>
+      <span>${w.text}</span>
+    </div>`).join('')
 
   // Por cultivo
   const R = {}
@@ -647,6 +921,11 @@ function buildSensTabs(){
 
 function buildSensContent(){
   const c = CROPS_DEF.find(x=>x.id===activeTab) || CROPS_DEF[0]
+  if(!c){
+    document.getElementById('sens-grids').innerHTML = `<div style="padding:30px;text-align:center;color:var(--muted);font-size:11px;grid-column:1/-1">Agregá al menos un cultivo para ver la sensibilización.</div>`
+    return
+  }
+  if(activeTab !== c.id){ activeTab = c.id; buildSensTabs() }
   const d = getData(c)
   const sojaRef = n('soja-ref') || 320
   const pStep = n('sp-pstep')||20, pCols = Math.round(n('sp-pcols'))||3
@@ -708,11 +987,366 @@ function buildSensContent(){
     </div>`
 }
 
+// ── ELIMINAR / AGREGAR CULTIVO ──
+function removeCrop(id){
+  const c = CROPS_DEF.find(x=>x.id===id)
+  if(!c) return
+  if(!confirm(`¿Eliminar "${c.name}" del cálculo?`)) return
+  CROPS_DEF = CROPS_DEF.filter(x=>x.id!==id)
+  if(activeTab === id) activeTab = CROPS_DEF[0]?.id
+  buildSidebar()
+  buildCultivos()
+  buildSensTabs()
+  recalc()
+}
+
+let editingCropId = null
+function openCropModal(id){
+  editingCropId = (typeof id==='string' && CROPS_DEF.some(c=>c.id===id)) ? id : null
+  const editing = !!editingCropId
+  const titleEl = document.getElementById('modal-title')
+  const baseFieldEl = document.getElementById('m-base-field')
+  titleEl.textContent = editing ? 'Editar cultivo' : 'Agregar cultivo'
+  baseFieldEl.style.display = editing ? 'none' : ''
+
+  if(editing){
+    const c = CROPS_DEF.find(x=>x.id===id)
+    document.getElementById('m-name').value = c.name
+    document.getElementById('m-color').value = c.color
+    document.getElementById('m-season').value = c.season
+    document.getElementById('m-cycle').value = c.cycle
+    document.getElementById('m-rinde').value = +document.getElementById(`${c.id}-rinde`)?.value || c.rinde
+    document.getElementById('m-precio').value = +document.getElementById(`${c.id}-precio`)?.value || c.precio
+    document.getElementById('m-gcom').value = +document.getElementById(`${c.id}-gcom`)?.value || c.gcom
+    document.getElementById('m-gcosecha').value = +document.getElementById(`${c.id}-gcosecha`)?.value || c.gcosecha
+    document.getElementById('m-gdirectos').value = +document.getElementById(`${c.id}-gdirectos`)?.value || c.gdirectos
+    document.getElementById('m-rent').value = +document.getElementById(`${c.id}-rent`)?.value || c.rent
+    document.getElementById('m-rot').value = +document.getElementById(`${c.id}-rot`)?.value || c.rot
+  } else {
+    const sel = document.getElementById('m-base')
+    sel.innerHTML = '<option value="">— Crear desde cero —</option>' +
+      CROPS_DEF.map(c=>`<option value="${c.id}">${c.name}</option>`).join('')
+    sel.value = ''
+    document.getElementById('m-name').value = ''
+    document.getElementById('m-color').value = '#1AB87A'
+    document.getElementById('m-season').value = 'invernal'
+    document.getElementById('m-cycle').value = '1'
+    document.getElementById('m-rinde').value = 3000
+    document.getElementById('m-precio').value = 250
+    document.getElementById('m-gcom').value = 30
+    document.getElementById('m-gcosecha').value = 90
+    document.getElementById('m-gdirectos').value = 500
+    document.getElementById('m-rent').value = 15
+    document.getElementById('m-rot').value = 0
+  }
+  document.getElementById('crop-modal').classList.add('open')
+  setTimeout(()=>document.getElementById('m-name').focus(),60)
+}
+function closeCropModal(){
+  document.getElementById('crop-modal').classList.remove('open')
+  editingCropId = null
+}
+
+function applyBase(){
+  const id = document.getElementById('m-base').value
+  if(!id) return
+  const c = CROPS_DEF.find(x=>x.id===id); if(!c) return
+  document.getElementById('m-name').value = c.name + ' (copia)'
+  document.getElementById('m-color').value = c.color
+  document.getElementById('m-season').value = c.season
+  document.getElementById('m-cycle').value = c.cycle
+  document.getElementById('m-rinde').value = c.rinde
+  document.getElementById('m-precio').value = c.precio
+  document.getElementById('m-gcom').value = c.gcom
+  document.getElementById('m-gcosecha').value = c.gcosecha
+  document.getElementById('m-gdirectos').value = c.gdirectos
+  document.getElementById('m-rent').value = c.rent
+  document.getElementById('m-rot').value = 0
+}
+
+function slugId(name){
+  const base = (name||'cultivo').toString().toLowerCase()
+    .normalize('NFD').replace(/[̀-ͯ]/g,'')
+    .replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'') || 'cultivo'
+  let id = base, i = 2
+  while(CROPS_DEF.some(c=>c.id===id)){ id = base+'-'+i; i++ }
+  return id
+}
+
+function saveCrop(){
+  const name = document.getElementById('m-name').value.trim()
+  if(!name){ alert('Indicá un nombre.'); return }
+  const payload = {
+    name,
+    color: document.getElementById('m-color').value || '#1AB87A',
+    season: document.getElementById('m-season').value,
+    cycle: document.getElementById('m-cycle').value,
+    rinde: +document.getElementById('m-rinde').value || 0,
+    precio: +document.getElementById('m-precio').value || 0,
+    gcom: +document.getElementById('m-gcom').value || 0,
+    gcosecha: +document.getElementById('m-gcosecha').value || 0,
+    gdirectos: +document.getElementById('m-gdirectos').value || 0,
+    rent: +document.getElementById('m-rent').value || 0,
+    rot: +document.getElementById('m-rot').value || 0,
+  }
+  if(editingCropId){
+    const c = CROPS_DEF.find(x=>x.id===editingCropId)
+    if(c) Object.assign(c, payload)
+  } else {
+    payload.id = slugId(name)
+    CROPS_DEF.push(payload)
+    if(!activeTab) activeTab = payload.id
+  }
+  closeCropModal()
+  buildSidebar()
+  buildCultivos()
+  buildSensTabs()
+  recalc()
+}
+
+// ── LOGOS para PDF (tinteados via canvas, porque html2canvas no soporta mask-image) ──
+let LOGO_WHITE_DATA_URL = ''  // logo blanco (PNG con bg transparente, tal cual)
+let LOGO_DARK_DATA_URL  = ''  // logo tinteado en --gris-oscuro
+function _extractLogoMaskUrl(){
+  const v = getComputedStyle(document.documentElement).getPropertyValue('--logo-mask').trim()
+  const m = v.match(/url\(\s*['"]?(data:[^'")]+)['"]?\s*\)/)
+  return m ? m[1] : ''
+}
+function _tintLogo(srcDataUrl, fillColor){
+  return new Promise((resolve, reject)=>{
+    const img = new Image()
+    img.onload = ()=>{
+      const cv = document.createElement('canvas')
+      cv.width = img.naturalWidth; cv.height = img.naturalHeight
+      const ctx = cv.getContext('2d')
+      ctx.drawImage(img,0,0)
+      ctx.globalCompositeOperation = 'source-in'
+      ctx.fillStyle = fillColor
+      ctx.fillRect(0,0,cv.width,cv.height)
+      resolve(cv.toDataURL('image/png'))
+    }
+    img.onerror = reject
+    img.src = srcDataUrl
+  })
+}
+async function _prepareLogos(){
+  const src = _extractLogoMaskUrl()
+  if(!src) return
+  LOGO_WHITE_DATA_URL = await _tintLogo(src, '#FFFFFF')
+  LOGO_DARK_DATA_URL  = await _tintLogo(src, '#616A6B')
+}
+
+// ── EXPORT PDF ──
+function _fmt(v, d=0){ return v>=0 ? 'U$S '+v.toFixed(d) : '('+Math.abs(v).toFixed(d)+')' }
+function _ymd(){
+  const d = new Date()
+  const p = x=>('0'+x).slice(-2)
+  return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}`
+}
+function _esTable(rows){
+  // rows: [{name, color, cycle:'Inv 1°|Est 1°|2°', rot, arr, aparc, mArr, mAparc}]
+  return `<table class="es-table"><thead><tr>
+    <th>Cultivo</th><th>Ciclo</th><th>%</th><th>Arrend. U$S/ha</th><th>Aparc. %</th><th>MN arr.</th><th>MN aparc.</th>
+  </tr></thead><tbody>${rows.map(r=>`
+    <tr>
+      <td><span style="display:inline-block;width:11px;height:11px;border-radius:50%;background:${r.color};margin-right:10px;vertical-align:middle"></span>${r.name}</td>
+      <td>${r.cycle}</td>
+      <td>${r.rot.toFixed(0)}%</td>
+      <td class="${r.arr<0?'es-neg':'es-pos'}">${_fmt(r.arr)}</td>
+      <td class="${r.aparc==null?'':(r.aparc<0?'es-neg':'es-pos')}">${r.aparc==null?'—':(r.aparc*100).toFixed(1)+'%'}</td>
+      <td class="${r.mArr<0?'es-neg':'es-pos'}">${_fmt(r.mArr)}</td>
+      <td class="${r.mAparc<0?'es-neg':'es-pos'}">${_fmt(r.mAparc)}</td>
+    </tr>`).join('')}</tbody></table>`
+}
+function _esSensTable(c, tipo, sojaRef){
+  const d = getData(c)
+  const pStep=n('sp-pstep')||20, pCols=Math.round(n('sp-pcols'))||3
+  const rStep=n('sp-rstep')||500, rRows=Math.round(n('sp-rrows'))||3
+  const precios=[], rindes=[]
+  for(let i=-pCols;i<=pCols;i++) precios.push(d.precio+i*pStep)
+  for(let i=-rRows;i<=rRows;i++) rindes.push(d.rinde+i*rStep)
+  let h = `<table class="es-sens-table"><thead><tr><th>▼ / →</th>`
+  precios.forEach(p=>{ h+=`<th>${p.toFixed(0)}${Math.abs(p-d.precio)<.01?' ★':''}</th>` })
+  h += `</tr></thead><tbody>`
+  rindes.forEach(r=>{
+    if(r<=0) return
+    const isCurR = Math.abs(r-d.rinde)<1
+    h += `<tr><td>${(r/1000).toFixed(1)}t${isCurR?' ★':''}</td>`
+    precios.forEach(p=>{
+      if(p<=0){ h+=`<td>—</td>`; return }
+      const isCur = isCurR && Math.abs(p-d.precio)<.01
+      let txt, cls
+      if(tipo==='arr'){
+        const v=calcArr(r,p,d.gcom,d.gcosecha,d.gdirectos,d.rent)
+        txt=v>=0?v.toFixed(0):'('+Math.abs(v).toFixed(0)+')'
+        cls=isCur?'es-cv-cur':v>=0?'es-cv-pos':'es-cv-neg'
+      } else if(tipo==='qq'){
+        const v=calcQq(calcArr(r,p,d.gcom,d.gcosecha,d.gdirectos,d.rent),sojaRef)
+        txt=v>=0?v.toFixed(1):'('+Math.abs(v).toFixed(1)+')'
+        cls=isCur?'es-cv-cur':v>=0?'es-cv-pos':'es-cv-neg'
+      } else {
+        const ap=calcAparc(r,p,d.gcom,d.gcosecha,d.gdirectos,d.rent)
+        if(ap==null){ h+=`<td><span class="es-cv es-cv-neg">—</span></td>`; return }
+        const v=ap*100
+        txt=v.toFixed(1)+'%'
+        cls=isCur?'es-cv-teal-cur':v>=0&&v<=100?'es-cv-teal':'es-cv-neg'
+      }
+      h+=`<td><span class="es-cv ${cls}">${txt}</span></td>`
+    })
+    h+=`</tr>`
+  })
+  return h+'</tbody></table>'
+}
+
+function _buildSlides(){
+  // recolectar resultados ponderados a partir del DOM actual
+  const sojaRef = n('soja-ref') || 320
+  let arrRot=0, ingPond=0, aparcNum=0, mArrRot=0, mAparcRot=0
+  const rows = CROPS_DEF.map(c=>{
+    const d = getData(c)
+    const arr  = calcArr(d.rinde,d.precio,d.gcom,d.gcosecha,d.gdirectos,d.rent)
+    const aparc = calcAparc(d.rinde,d.precio,d.gcom,d.gcosecha,d.gdirectos,d.rent)
+    const mArr = margenArr(arr,d.gdirectos,d.rent)
+    const mAparc = margenAparc(d.gdirectos,d.rent)
+    const ing = ingresoNeto(d.rinde,d.precio,d.gcom)
+    arrRot += arr*d.rot; mArrRot += mArr*d.rot; mAparcRot += mAparc*d.rot
+    ingPond += ing*d.rot
+    if(aparc!=null) aparcNum += aparc*ing*d.rot
+    return {name:c.name, color:c.color, cycle:cycleTagInfo(c).txt, rot:d.rotPct, arr, aparc, mArr, mAparc}
+  })
+  const qqRot = calcQq(arrRot, sojaRef)
+  const aparcRot = ingPond>0 ? aparcNum/ingPond : 0
+  const date = _ymd()
+  const activeC = CROPS_DEF.find(x=>x.id===activeTab) || CROPS_DEF[0]
+
+  // 3 slides
+  const slides = []
+
+  const imgDark  = LOGO_DARK_DATA_URL  ? `<img class="es-logo es-logo-cover" src="${LOGO_DARK_DATA_URL}" alt="Simpleza">` : ''
+  const imgWhite = LOGO_WHITE_DATA_URL ? `<img class="es-logo" src="${LOGO_WHITE_DATA_URL}" alt="Simpleza">` : ''
+
+  // Slide 1: portada
+  slides.push(`
+    <div class="es-cover" style="height:100%">
+      ${imgDark}
+      <div class="es-cover-eyebrow">Calculadora de arrendamientos</div>
+      <div class="es-cover-title">Capacidad de pago<br>de alquileres</div>
+      <div class="es-cover-sub">Resumen ejecutivo de arrendamiento y aparcería ponderado por rotación, con sensibilidad a precio y rinde.</div>
+      <div class="es-cover-pills">
+        ${CROPS_DEF.map(c=>`<div class="es-cover-pill"><span style="display:inline-block;width:11px;height:11px;border-radius:50%;background:${c.color}"></span><span>${c.name}</span></div>`).join('')}
+      </div>
+      <div style="margin-top:30px;font-size:14px;color:var(--muted);letter-spacing:1px;text-transform:uppercase">${date}</div>
+    </div>`)
+
+  // Slide 2: KPIs + tabla
+  slides.push(`
+    <div class="es-header">
+      ${imgWhite}
+      <div class="es-header-text">
+        <div class="es-eyebrow">Simpleza · Capacidad de pago</div>
+        <div class="es-title">Resultado por rotación</div>
+      </div>
+      <div class="es-date">${date}</div>
+    </div>
+    <div class="es-body">
+      <div>
+        <div class="es-section-title teal">Resumen ponderado</div>
+        <div class="es-kpis">
+          <div class="es-kpi"><div class="es-kpi-lbl">MN Arrend.</div><div class="es-kpi-val ${mArrRot<0?'bad':''}">U$S ${mArrRot.toFixed(0)}</div><div class="es-kpi-sub">U$S/ha</div></div>
+          <div class="es-kpi"><div class="es-kpi-lbl">MN Aparc.</div><div class="es-kpi-val ${mAparcRot<0?'bad':''}">U$S ${mAparcRot.toFixed(0)}</div><div class="es-kpi-sub">U$S/ha</div></div>
+          <div class="es-kpi"><div class="es-kpi-lbl">Arrendamiento</div><div class="es-kpi-val ${arrRot<0?'bad':''}">U$S ${arrRot.toFixed(0)}</div><div class="es-kpi-sub">U$S/ha</div></div>
+          <div class="es-kpi teal"><div class="es-kpi-lbl">Aparcería</div><div class="es-kpi-val teal">${(aparcRot*100).toFixed(1)}%</div><div class="es-kpi-sub">del ingreso neto</div></div>
+          <div class="es-kpi"><div class="es-kpi-lbl">Arrend. en qq</div><div class="es-kpi-val ${qqRot<0?'bad':''}">${qqRot.toFixed(1)} qq</div><div class="es-kpi-sub">soja/ha · ref. U$S ${sojaRef}</div></div>
+        </div>
+      </div>
+      <div style="flex:1;display:flex;flex-direction:column">
+        <div class="es-section-title">Detalle por cultivo</div>
+        <div>${_esTable(rows)}</div>
+      </div>
+      <div class="es-formula">Arr = [R×(P−Gc)/1000 − Gcosecha − Gdir − Rent×Gdir] / (1+Rent)<br>Aparc = 1 − [Rent×Gdir + Gcosecha + Gdir] / [R×(P−Gc)/1000]</div>
+    </div>
+    <div class="es-footer"><div>Simpleza · Capacidad de pago de alquileres</div><div class="f-spacer"></div><div>Slide 2 / 3</div></div>`)
+
+  // Slide 3: sensibilización del cultivo activo
+  if(activeC){
+    slides.push(`
+    <div class="es-header">
+      ${imgWhite}
+      <div class="es-header-text">
+        <div class="es-eyebrow">Sensibilización · ${activeC.name}</div>
+        <div class="es-title">Precio × Rinde</div>
+      </div>
+      <div class="es-date">${date}</div>
+    </div>
+    <div class="es-body" style="gap:18px">
+      <div class="es-section-title gold">Tres vistas: arrendamiento (U$S/ha) · qq soja/ha · aparcería %</div>
+      <div class="es-sens-grid">
+        <div class="es-sens-block">
+          <div class="es-sens-head"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${activeC.color}"></span>${activeC.name}<span class="es-sens-badge">U$S/ha</span></div>
+          ${_esSensTable(activeC,'arr',sojaRef)}
+        </div>
+        <div class="es-sens-block">
+          <div class="es-sens-head"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${activeC.color}"></span>${activeC.name}<span class="es-sens-badge">qq soja/ha</span></div>
+          ${_esSensTable(activeC,'qq',sojaRef)}
+        </div>
+        <div class="es-sens-block">
+          <div class="es-sens-head"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${activeC.color}"></span>${activeC.name}<span class="es-sens-badge" style="color:var(--teal)">Aparcería %</span></div>
+          ${_esSensTable(activeC,'aparc',sojaRef)}
+        </div>
+      </div>
+    </div>
+    <div class="es-footer"><div>Simpleza · Sensibilización ${activeC.name}</div><div class="f-spacer"></div><div>Slide 3 / 3</div></div>`)
+  }
+
+  return slides
+}
+
+async function exportPDF(){
+  if(typeof html2canvas==='undefined' || typeof window.jspdf==='undefined'){
+    alert('Las librerías de exportación aún no cargaron. Probá de nuevo en unos segundos.')
+    return
+  }
+  const btn = document.querySelector('.btn-pdf')
+  const original = btn.innerHTML
+  btn.innerHTML = '⏳ Generando...'
+  btn.disabled = true
+  try{
+    if(!LOGO_WHITE_DATA_URL || !LOGO_DARK_DATA_URL){ await _prepareLogos() }
+    const slides = _buildSlides()
+    const { jsPDF } = window.jspdf
+    const pdf = new jsPDF({orientation:'landscape', unit:'px', format:[1920,1080], hotfixes:['px_scaling']})
+    const stage = document.getElementById('export-stage')
+    for(let i=0;i<slides.length;i++){
+      stage.innerHTML = slides[i]
+      // dar tiempo a fonts/render
+      await new Promise(r=>setTimeout(r,180))
+      const canvas = await html2canvas(stage, {scale:1, backgroundColor:'#F9F4ED', useCORS:true, width:1920, height:1080})
+      const img = canvas.toDataURL('image/jpeg', 0.92)
+      if(i>0) pdf.addPage([1920,1080], 'landscape')
+      pdf.addImage(img, 'JPEG', 0, 0, 1920, 1080)
+    }
+    stage.innerHTML = ''
+    pdf.save(`capacidad-pago-alquileres_${_ymd()}.pdf`)
+  } catch(err){
+    console.error(err)
+    alert('Error al generar PDF: '+err.message)
+  } finally {
+    btn.innerHTML = original
+    btn.disabled = false
+  }
+}
+
+// cerrar modal con Esc
+document.addEventListener('keydown', e=>{
+  if(e.key==='Escape') closeCropModal()
+})
+
 // ── INIT ──
 buildSidebar()
 buildCultivos()
 buildSensTabs()
 recalc()
+_prepareLogos().catch(e=>console.warn('prepareLogos:', e))
 </script>
 </body>
 </html>
